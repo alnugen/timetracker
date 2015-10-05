@@ -1,4 +1,4 @@
-<h1>New Company</h1>
+<h1>Edit Company</h1>
 <% if @company.errors.any? %>
 	<div id="errors">
 		<p>Please correct the following <%= pluralize(@company.errors.count, "error") %></p>
@@ -16,7 +16,7 @@
 		<%= f.text_field :name %>
 	</div>
 	<div>
-		<%= f.submit "Create Company" %>
+		<%= f.submit "Update Company" %>
 	</div>
 <% end %>
 
