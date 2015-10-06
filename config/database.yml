@@ -22,4 +22,10 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: vehicle_blog_production
+  username: <%= ENV['VEHICLE_BLOG_DATABASE_USERNAME'] %>
+  password: <%= ENV['VEHICLE_BLOG_DATABASE_PASSWORD'] %>
