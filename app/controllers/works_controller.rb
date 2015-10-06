@@ -1,5 +1,7 @@
 class WorksController < ApplicationController
 
+	before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
+
 	def index
 		if (params[:days])
 			@works = Work.recentdays(params[:days]).order('datetimeperformed desc')
@@ -12,13 +14,14 @@ class WorksController < ApplicationController
 		@work = Work.find(params[:id])
 	end
 
+
 	def new
 		@work = Work.new
 	end
 
 	def create
-		@work = Work.new(params[:work].permit(:project_id, :user_id, :datetimeperformed, :hours))
-		
+		@work = Work.new(params[:work].permit(:project_id, :datetimeperformed, :hours))
+		@work.user = current_user
 		if params[:doc]
 			uploaded_io = params[:doc]
 			File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
@@ -45,7 +48,8 @@ class WorksController < ApplicationController
 
 	def update
 		@work = Work.find(params[:id])
-		if @work.update(params[:work].permit(:project_id, :user_id, :datetimeperformed, :hours))
+		@work.user = current_user
+		if @work.update(params[:work].permit(:project_id, :datetimeperformed, :hours))
 			flash[:notice] = "Work updated"
 			redirect_to @work
 		else
