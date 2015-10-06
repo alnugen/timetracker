@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-
+	before_filter :authenticate_user!
+	
 	def index
 		@projects = Project.all
 	end
@@ -35,6 +36,7 @@ class ProjectsController < ApplicationController
 	def update
 		@project = Project.find(params[:id])
 		if @project.update(params[:project].permit(:name, :slug, :default_rate, :company_id))
+			Usermailer.projectupdated_email(@project).deliver
 			flash[:notice] = "Project Updated"
 			redirect_to @project
 		else

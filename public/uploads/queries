@@ -1,0 +1,1 @@
+v= Vehicle.new(brand_name:"Audi", model_name:"A6", displacement:1968, tank_capacity:75, mileage:14.33, price:50000000)
