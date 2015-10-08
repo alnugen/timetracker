@@ -1,6 +1,8 @@
 <h1><%= @company.name %></h1>
 
-<p><%= link_to 'Edit Company', edit_company_path(@company) %></p>
+<% if user_signed_in? %>
+	<p><%= link_to 'Edit Company', edit_company_path(@company) %></p>
+<% end %>
 
 <% if @company.projects.size > 0%>
 	<table>
@@ -15,6 +17,7 @@
 <% else %>
 	<p>No projects</p>
 <% end %>
+
 
 <% content_for :aside do %>
 	<% render 'sidebar' %>

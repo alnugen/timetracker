@@ -42,10 +42,16 @@ module ApplicationHelper
 			index_path = "#{controller_name}_path"
 			new_title = "New #{controller_name.singularize.capitalize}"
 			new_path = "new_#{controller_name.singularize}_path"
-			raw("<ul>
-				<li>#{link_to index_title, eval(index_path)}</li>
-				<li>#{link_to new_title, eval(new_path)}</li>
-				</ul>")
+			if user_signed_in?
+				raw("<ul>
+					<li>#{link_to index_title, eval(index_path)}</li>
+					<li>#{link_to new_title, eval(new_path)}</li>
+					</ul>")
+			#else
+			#	raw("<ul>
+			#		<li>#{link_to index_title, eval(index_path)}</li>
+			#		</ul>")
+			end
 		end
 	end
 end
